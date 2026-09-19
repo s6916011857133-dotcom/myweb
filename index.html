@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ชนาสิน ฤทธิคุปต์ - Personal Portfolio & Executive HR Dashboard</title>
+
+    <!-- Google Fonts: Cinzel, Playfair Display, Noto Serif Thai, and Sarabun -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Noto+Serif+Thai:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,400&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome for Gatsby Luxury Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Tailwind Custom Color Tokens -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: '#0b1712',
+                        forest: '#11221b',
+                        gold: '#d4af37',
+                        goldlight: '#fce085',
+                        golddark: '#997415',
+                        cream: '#f5eedc',
+                        footergray: '#e5e7eb',
+                        footerdark: '#1f2937'
+                    },
+                    fontFamily: {
+                        cinzel: ['Cinzel', 'serif'],
+                        playfair: ['Playfair Display', 'serif'],
+                        noto: ['Noto Serif Thai', 'serif'],
+                        sarabun: ['Sarabun', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Styling & Background Pattern */
+        body {
+            background-color: #0b1712;
+            color: #f5eedc;
+            font-family: 'Sarabun', sans-serif;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.12) 0%, transparent 70%),
+                linear-gradient(rgba(11, 23, 18, 0.95), rgba(11, 23, 18, 0.98)),
+                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30L30 0zm0 10L10 30l20 20 20-20L30 10z' fill='%23d4af37' fill-opacity='0.04' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+
+        /* Metallic Gold Gradient Text */
+        .text-gold-gradient {
+            background: linear-gradient(135deg, #fce085 0%, #d4af37 50%, #997415 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Art Deco Border Utilities */
+        .deco-border {
+            border: 2px solid #d4af37;
+            position: relative;
+            background-color: rgba(17, 34, 27, 0.85);
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.15);
+        }
+
+        .deco-border::before {
+            content: '';
+            position: absolute;
+            inset: 4px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            pointer-events: none;
+        }
+
+        /* Corner Diamond Embellishments */
+        .diamond-corner {
+            position: absolute;
+            color: #d4af37;
+            font-size: 13px;
+            line-height: 1;
+            background-color: #11221b;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+            border: 1px solid #d4af37;
+            transform: rotate(45deg);
+        }
+
+        .diamond-corner span {
+            transform: rotate(-45deg);
+            font-size: 10px;
+        }
+
+        .dc-tl { top: -11px; left: -11px; }
+        .dc-tr { top: -11px; right: -11px; }
+        .dc-bl { bottom: -11px; left: -11px; }
+        .dc-br { bottom: -11px; right: -11px; }
+
+        /* Art Deco Frame for Profile Image */
+        .deco-photo-frame {
+            position: relative;
+            border: 3px solid #d4af37;
+            padding: 8px;
+            background: linear-gradient(145deg, #11221b, #0b1712);
+            box-shadow: 0 0 35px rgba(212, 175, 55, 0.35);
+        }
+
+        .deco-photo-frame::after {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border: 1px dashed rgba(212, 175, 55, 0.6);
+            pointer-events: none;
+        }
+
+        /* Custom Hover & Aura Glow Effects */
+        .gold-glow {
+            text-shadow: 0 0 12px rgba(212, 175, 55, 0.6);
+        }
+
+        .gold-box-hover {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .gold-box-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+            border-color: #fce085;
+        }
+
+        /* Splash Screen Fade Out */
+        #splash-screen {
+            transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+            background: radial-gradient(circle at center, #11221b 0%, #0b1712 100%);
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b1712;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body class="selection:bg-gold selection:text-emerald">
+
+    <div id="splash-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center p-4">
+        <div class="deco-border p-8 md:p-14 text-center max-w-2xl w-full relative backdrop-blur-md">
+            <div class="diamond-corner dc-tl"><span>◆</span></div>
+            <div class="diamond-corner dc-tr"><span>◆</span></div>
+            <div class="diamond-corner dc-bl"><span>◆</span></div>
+            <div class="diamond-corner dc-br"><span>◆</span></div>
+
+            <div class="w-16 h-16 mx-auto mb-4 border-2 border-gold rotate-45 flex items-center justify-center bg-forest">
+                <i class="fa-solid fa-crown text-gold text-2xl -rotate-45"></i>
+            </div>
+
+            <p class="font-cinzel text-gold text-xs tracking-[0.3em] uppercase mb-2">Executive Personal Portfolio</p>
+            <h1 class="font-noto text-3xl md:text-5xl font-bold text-gold-gradient gold-glow mb-2">ชนาสิน ฤทธิคุปต์</h1>
+            <p class="font-cinzel text-cream/90 text-sm md:text-lg tracking-widest uppercase mb-6">Chanasin Rittikupt</p>
+            
+            <div class="w-3/4 h-px bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6"></div>
+
+            <p class="font-sarabun text-cream/80 text-sm md:text-base mb-8 font-light">
+                ผู้จัดการฝ่ายทรัพยากรบุคคล (Human Resources Manager)<br>
+                <span class="text-gold/80 text-xs font-cinzel tracking-wider">Strategic HR Leadership & Organizational Excellence</span>
+            </p>
+
+            <button id="enter-btn" onclick="closeSplashScreen()" class="group relative px-8 py-3.5 overflow-hidden border-2 border-gold bg-forest text-gold font-cinzel text-sm uppercase tracking-[0.2em] font-semibold transition-all duration-300 hover:bg-gold hover:text-emerald hover:shadow-[0_0_25px_rgba(212,175,55,0.8)]">
+                <span class="relative z-10 flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-diamond text-xs"></i>
+                    เข้าสู่เว็บไซต์ (ENTER SITE)
+                    <i class="fa-solid fa-diamond text-xs"></i>
+                </span>
+            </button>
+            
+            <p class="text-xs text-gold/50 font-cinzel mt-4 tracking-widest">GATSBY LUXURY EDITION 1920s</p>
+        </div>
+    </div>
+
+    <header class="sticky top-0 z-40 bg-emerald/95 backdrop-blur-md border-b-2 border-gold shadow-[0_4px_25px_rgba(212,175,55,0.2)]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 border border-gold rotate-45 flex items-center justify-center bg-forest group-hover:bg-gold transition-colors duration-300">
+                    <span class="font-cinzel text-gold group-hover:text-emerald font-bold text-lg -rotate-45 transition-colors">CR</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-noto text-gold-gradient font-bold text-lg tracking-wide">ชนาสิน ฤทธิคุปต์</span>
+                    <span class="font-cinzel text-[10px] text-cream/70 tracking-[0.2em] uppercase">HR Manager</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center space-x-6 lg:space-x-8 font-noto text-sm">
+                <a href="#education" class="text-cream/90 hover:text-gold transition-colors py-1 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-gold hover:after:w-full after:transition-all">ประวัติการศึกษา</a>
+                <a href="#contact" class="text-cream/90 hover:text-gold transition-colors py-1 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-gold hover:after:w-full after:transition-all">สถานที่ติดต่อ</a>
+                <a href="#experience" class="text-cream/90 hover:text-gold transition-colors py-1 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-gold hover:after:w-full after:transition-all">ผลงานโดดเด่น</a>
+                <a href="#dashboard" class="px-4 py-2 border border-gold text-gold hover:bg-gold hover:text-emerald transition-all font-cinzel text-xs font-bold tracking-wider uppercase flex items-center gap-2">
+                    <i class="fa-solid fa-chart-pie"></i> Dashboard
+                </a>
+            </nav>
+
+            <!-- Mobile Hamburger Button -->
+            <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden text-gold text-2xl p-2 focus:outline-none" aria-label="Toggle Navigation">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-gold/30 bg-forest/95 px-4 py-6 space-y-4 font-noto">
+            <a href="#education" onclick="toggleMobileMenu()" class="block text-cream hover:text-gold text-base py-2 border-b border-gold/10">1. ประวัติการศึกษา</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="block text-cream hover:text-gold text-base py-2 border-b border-gold/10">2. สถานที่ติดต่อ</a>
+            <a href="#experience" onclick="toggleMobileMenu()" class="block text-cream hover:text-gold text-base py-2 border-b border-gold/10">3. ผลงานโดดเด่น</a>
+            <a href="#dashboard" onclick="toggleMobileMenu()" class="block text-gold font-bold text-base py-2 flex items-center gap-2">
+                <i class="fa-solid fa-chart-pie"></i> 4. Dashboard รายงานผลงาน
+            </a>
+        </div>
+    </header>
+
+    <section class="relative py-16 lg:py-24 overflow-hidden border-b border-gold/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Details -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 border border-gold/50 bg-forest/80 rounded-full text-gold text-xs font-cinzel tracking-widest uppercase">
+                        <i class="fa-solid fa-award"></i> Executive HR Portfolio
+                    </div>
+                    
+                    <h1 class="font-noto text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
+                        <span class="text-cream">คุณชนาสิน</span> 
+                        <span class="text-gold-gradient gold-glow block mt-1">ฤทธิคุปต์</span>
+                    </h1>
+
+                    <p class="font-cinzel text-lg sm:text-xl text-gold/90 uppercase tracking-widest font-semibold">
+                        Human Resources Manager
+                    </p>
+
+                    <p class="text-cream/80 text-base sm:text-lg leading-relaxed font-light max-w-2xl mx-auto lg:mx-0">
+                        ผู้บริหารและผู้เชี่ยวชาญด้านการจัดการทรัพยากรบุคคลด้วยประสบการณ์กว่า <strong class="text-gold font-semibold">19+ ปี</strong> มีความชำนาญในการบริหารยุทธศาสตร์กำลังคน (Strategic HR), การวางระบบ Payroll, การเพิ่มความผูกพันในองค์กร (Employee Engagement) และการปรับปรุงกระบวนการสรรหาบุคลากรเพื่อขับเคลื่อนองค์กรสู่ความสำเร็จ
+                    </p>
+
+                    <!-- Key High-level Pills -->
+                    <div class="pt-4 flex flex-wrap gap-3 justify-center lg:justify-start">
+                        <span class="px-3 py-1.5 border border-gold/30 bg-emerald/80 text-cream/90 text-xs font-sarabun flex items-center gap-2">
+                            <i class="fa-solid fa-check text-gold"></i> ประสบการณ์บริหาร 19+ ปี
+                        </span>
+                        <span class="px-3 py-1.5 border border-gold/30 bg-emerald/80 text-cream/90 text-xs font-sarabun flex items-center gap-2">
+                            <i class="fa-solid fa-check text-gold"></i> ลดเวลารับสมัครงาน 50%
+                        </span>
+                        <span class="px-3 py-1.5 border border-gold/30 bg-emerald/80 text-cream/90 text-xs font-sarabun flex items-center gap-2">
+                            <i class="fa-solid fa-check text-gold"></i> แม่นยำ Payroll 100%
+                        </span>
+                    </div>
+
+                    <div class="pt-6 flex flex-wrap justify-center lg:justify-start gap-4">
+                        <a href="#dashboard" class="px-6 py-3 border-2 border-gold bg-gold text-emerald hover:bg-goldlight font-cinzel font-bold text-xs uppercase tracking-widest transition-all shadow-[0_0_20px_rgba(212,175,55,0.4)]">
+                            <i class="fa-solid fa-chart-line mr-2"></i> ชมรายงาน Dashboard
+                        </a>
+                        <a href="#contact" class="px-6 py-3 border-2 border-gold text-gold hover:bg-gold/10 font-cinzel font-bold text-xs uppercase tracking-widest transition-all">
+                            <i class="fa-solid fa-envelope mr-2"></i> ข้อมูลการติดต่อ
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Profile Portrait -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="relative w-full max-w-sm">
+                        <!-- Art Deco Frame Wrapper -->
+                        <div class="deco-photo-frame">
+                            <div class="diamond-corner dc-tl"><span>◆</span></div>
+                            <div class="diamond-corner dc-tr"><span>◆</span></div>
+                            <div class="diamond-corner dc-bl"><span>◆</span></div>
+                            <div class="diamond-corner dc-br"><span>◆</span></div>
+                            
+                            <img src="image0.jpeg" alt="คุณชนาสิน ฤทธิคุปต์" class="w-full h-auto object-cover border border-gold/40">
+                        </div>
+                        <div class="text-center mt-4">
+                            <p class="font-noto text-gold text-base font-semibold">คุณชนาสิน ฤทธิคุปต์</p>
+                            <p class="font-cinzel text-cream/60 text-xs tracking-wider">CHANASIN RITTIKUPT</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-28">
+
+        <section id="education" class="scroll-mt-24">
+            <!-- Section Title -->
+            <div class="text-center mb-16">
+                <div class="inline-block text-gold text-xs font-cinzel tracking-[0.3em] uppercase mb-1">Academic Background</div>
+                <h2 class="font-noto text-3xl sm:text-4xl text-gold-gradient font-bold uppercase tracking-wider">1. ประวัติการศึกษา</h2>
+                <div class="flex items-center justify-center gap-3 mt-3">
+                    <div class="h-px w-12 bg-gold"></div>
+                    <i class="fa-solid fa-diamond text-gold text-xs"></i>
+                    <div class="h-px w-12 bg-gold"></div>
+                </div>
+            </div>
+
+            <!-- Education Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                
+                <!-- Education Item 1: Ramkhamhaeng -->
+                <div class="deco-border p-8 gold-box-hover">
+                    <div class="diamond-corner dc-tl"><span>◆</span></div>
+                    <div class="diamond-corner dc-tr"><span>◆</span></div>
+                    <div class="diamond-corner dc-bl"><span>◆</span></div>
+                    <div class="diamond-corner dc-br"><span>◆</span></div>
+
+                    <div class="flex items-start justify-between border-b border-gold/30 pb-4 mb-6">
+                        <div>
+                            <span class="px-3 py-1 bg-gold/10 border border-gold/50 text-gold font-cinzel text-xs tracking-widest font-bold">2566 (2023)</span>
+                            <h3 class="font-noto text-2xl text-cream font-bold mt-3">ปริญญาตรี ศิลปศาสตรบัณฑิต</h3>
+                        </div>
+                        <div class="w-12 h-12 border border-gold flex items-center justify-center bg-forest text-gold">
+                            <i class="fa-solid fa-[#11221b] fa-graduation-cap text-2xl"></i>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 font-sarabun text-base">
+                        <p class="text-cream/90">
+                            <strong class="text-gold font-medium">สาขาวิชา:</strong> ภาษาอังกฤษ (English Language)
+                        </p>
+                        <p class="text-cream/90">
+                            <strong class="text-gold font-medium">สถาบัน:</strong> มหาวิทยาลัยรามคำแหง (Ramkhamhaeng University)
+                        </p>
+                        <p class="text-cream/70 text-sm pt-2 border-t border-gold/10">
+                            <i class="fa-solid fa-language text-gold mr-2"></i>เพิ่มพูนศักยภาพการสื่อสารภาษาอังกฤษระดับองค์กรและธุรกิจต่างประเทศ
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Education Item 2: Thammasat -->
+                <div class="deco-border p-8 gold-box-hover">
+                    <div class="diamond-corner dc-tl"><span>◆</span></div>
+                    <div class="diamond-corner dc-tr"><span>◆</span></div>
+                    <div class="diamond-corner dc-bl"><span>◆</span></div>
+                    <div class="diamond-corner dc-br"><span>◆</span></div>
+
+                    <div class="flex items-start justify-between border-b border-gold/30 pb-4 mb-6">
+                        <div>
+                            <span class="px-3 py-1 bg-gold/10 border border-gold/50 text-gold font-cinzel text-xs tracking-widest font-bold">2548 (2005)</span>
+                            <h3 class="font-noto text-2xl text-cream font-bold mt-3">ปริญญาตรี สังคมสงเคราะห์ศาสตรบัณฑิต</h3>
+                        </div>
+                        <div class="w-12 h-12 border border-gold flex items-center justify-center bg-forest text-gold">
+                            <i class="fa-solid fa-award text-2xl"></i>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 font-sarabun text-base">
+                        <p class="text-gold font-semibold flex items-center gap-2">
+                            <i class="fa-solid fa-star text-gold"></i> เกียรตินิยมอันดับ 2 (2nd Class Honors)
+                        </p>
+                        <p class="text-cream/90">
+                            <strong class="text-gold font-medium">สถาบัน:</strong> มหาวิทยาลัยธรรมศาสตร์ (Thammasat University)
+                        </p>
+                        <p class="text-cream/70 text-sm pt-2 border-t border-gold/10">
+                            <i class="fa-solid fa-users text-gold mr-2"></i>ปูพื้นฐานความเข้าใจมนุษย์ สัมพันธภาพ และการบริหารสวัสดิการในสังคม
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Qualifications Summary Box -->
+            <div class="mt-12 max-w-5xl mx-auto deco-border p-6 bg-forest/90">
+                <div class="diamond-corner dc-tl"><span>◆</span></div>
+                <div class="diamond-corner dc-tr"><span>◆</span></div>
+                <div class="diamond-corner dc-bl"><span>◆</span></div>
+                <div class="diamond-corner dc-br"><span>◆</span></div>
+
+                <h4 class="font-noto text-lg text-gold font-bold mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-gem text-gold"></i> คุณลักษณะและความเชี่ยวชาญเด่น (Core Qualifications)
+                </h4>
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 text-center font-sarabun text-sm">
+                    <div class="p-3 border border-gold/20 bg-emerald/60 text-cream">ทักษะมนุษยสัมพันธ์ดีเยี่ยม</div>
+                    <div class="p-3 border border-gold/20 bg-emerald/60 text-cream">กระตือรือร้นและมุ่งมั่น</div>
+                    <div class="p-3 border border-gold/20 bg-emerald/60 text-cream">แก้ปัญหาเฉพาะหน้าได้ดี</div>
+                    <div class="p-3 border border-gold/20 bg-emerald/60 text-cream">ทำงานภายใต้สภาวะกดดัน</div>
+                    <div class="p-3 border border-gold/20 bg-emerald/60 text-cream">การทำงานร่วมกันเป็นทีม</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="scroll-mt-24">
+            <!-- Section Title -->
+            <div class="text-center mb-16">
+                <div class="inline-block text-gold text-xs font-cinzel tracking-[0.3em] uppercase mb-1">Get In Touch</div>
+                <h2 class="font-noto text-3xl sm:text-4xl text-gold-gradient font-bold uppercase tracking-wider">2. สถานที่ติดต่อ</h2>
+                <div class="flex items-center justify-center gap-3 mt-3">
+                    <div class="h-px w-12 bg-gold"></div>
+                    <i class="fa-solid fa-diamond text-gold text-xs"></i>
+                    <div class="h-px w-12 bg-gold"></div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-6xl mx-auto">
+                
+                <!-- Main Contact Box -->
+                <div class="lg:col-span-7 deco-border p-8 space-y-6">
+                    <div class="diamond-corner dc-tl"><span>◆</span></div>
+                    <div class="diamond-corner dc-tr"><span>◆</span></div>
+                    <div class="diamond-corner dc-bl"><span>◆</span></div>
+                    <div class="diamond-corner dc-br"><span>◆</span></div>
+
+                    <h3 class="font-noto text-2xl text-gold font-bold border-b border-gold/30 pb-3">ข้อมูลการติดต่อโดยตรง</h3>
+
+                    <div class="space-y-5 font-sarabun text-base">
+                        <!-- Phone -->
+                        <div class="flex items-start gap-4 p-4 border border-gold/20 bg-emerald/50 hover:border-gold/60 transition-colors group">
+                            <div class="w-10 h-10 border border-gold flex items-center justify-center bg-forest text-gold shrink-0">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div class="flex-grow">
+                                <p class="text-gold text-xs font-cinzel uppercase tracking-wider">Phone Number</p>
+                                <p class="text-cream font-semibold text-lg">095-2546539</p>
+                            </div>
+                            <button onclick="copyToClipboard('0952546539', 'เบอร์โทรศัพท์')" class="px-3 py-1.5 border border-gold/50 text-gold text-xs hover:bg-gold hover:text-emerald transition-colors" title="คัดลอกเบอร์โทร">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="flex items-start gap-4 p-4 border border-gold/20 bg-emerald/50 hover:border-gold/60 transition-colors group">
+                            <div class="w-10 h-10 border border-gold flex items-center justify-center bg-forest text-gold shrink-0">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div class="flex-grow">
+                                <p class="text-gold text-xs font-cinzel uppercase tracking-wider">Email Address</p>
+                                <p class="text-cream font-semibold text-base sm:text-lg break-all">chanasin.bryce1984@gmail.com</p>
+                            </div>
+                            <button onclick="copyToClipboard('chanasin.bryce1984@gmail.com', 'อีเมล')" class="px-3 py-1.5 border border-gold/50 text-gold text-xs hover:bg-gold hover:text-emerald transition-colors" title="คัดลอกอีเมล">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                        </div>
+
+                        <!-- Address -->
+                        <div class="flex items-start gap-4 p-4 border border-gold/20 bg-emerald/50 hover:border-gold/60 transition-colors group">
+                            <div class="w-10 h-10 border border-gold flex items-center justify-center bg-forest text-gold shrink-0">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div class="flex-grow">
+                                <p class="text-gold text-xs font-cinzel uppercase tracking-wider">Address</p>
+                                <p class="text-cream text-base leading-relaxed">
+                                    97/157 Park Gallery ศรีนครินทร์ บางแก้ว อำเภอบางพลี จังหวัดสมุทรปราการ 10540
+                                </p>
+                            </div>
+                            <button onclick="copyToClipboard('97/157 Park Gallery ศรีนครินทร์ บางแก้ว อำเภอบางพลี จังหวัดสมุทรปราการ 10540', 'ที่อยู่')" class="px-3 py-1.5 border border-gold/50 text-gold text-xs hover:bg-gold hover:text-emerald transition-colors" title="คัดลอกที่อยู่">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reference Contacts Box -->
+                <div class="lg:col-span-5 deco-border p-8 space-y-6 flex flex-col justify-between">
+                    <div class="diamond-corner dc-tl"><span>◆</span></div>
+                    <div class="diamond-corner dc-tr"><span>◆</span></div>
+                    <div class="diamond-corner dc-bl"><span>◆</span></div>
+                    <div class="diamond-corner dc-br"><span>◆</span></div>
+
+                    <div>
+                        <h3 class="font-noto text-xl text-gold font-bold border-b border-gold/30 pb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-user-check text-gold"></i> บุคคลอ้างอิง (References)
+                        </h3>
+                        <p class="text-cream/70 text-xs font-sarabun mt-2">
+                            บุคคลผู้รับรองการทำงานและประสบการณ์ทางวิชาชีพ
+                        </p>
+                    </div>
+
+                    <div class="space-y-4 font-sarabun">
+                        <!-- Reference 1 -->
+                        <div class="p-4 border border-gold/30 bg-emerald/70">
+                            <p class="text-gold font-semibold text-base">คุณกิตติชัย แหงเจ็ง</p>
+                            <p class="text-cream/80 text-sm mt-1 flex items-center gap-2">
+                                <i class="fa-solid fa-phone text-gold text-xs"></i> 082-629-6253
+                            </p>
+                        </div>
+
+                        <!-- Reference 2 -->
+                        <div class="p-4 border border-gold/30 bg-emerald/70">
+                            <p class="text-gold font-semibold text-base">คุณปราสตานี ศรีสุราษฎร์มณี</p>
+                            <p class="text-cream/80 text-sm mt-1 flex items-center gap-2">
+                                <i class="fa-solid fa-phone text-gold text-xs"></i> 084-278-0500
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="p-3 border border-gold/20 bg-forest text-center text-xs text-cream/60">
+                        พร้อมให้ข้อมูลอ้างอิงเพิ่มเติมเมื่อได้รับการร้องขอ
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="experience" class="scroll-mt-24">
+            <!-- Section Title -->
+            <div class="text-center mb-12">
+                <div class="inline-block text-gold text-xs font-cinzel tracking-[0.3em] uppercase mb-1">Career & Key Accomplishments</div>
+                <h2 class="font-noto text-3xl sm:text-4xl text-gold-gradient font-bold uppercase tracking-wider">3. ผลงานโดดเด่นและประสบการณ์</h2>
+                <div class="flex items-center justify-center gap-3 mt-3">
+                    <div class="h-px w-12 bg-gold"></div>
+                    <i class="fa-solid fa-diamond text-gold text-xs"></i>
+                    <div class="h-px w-12 bg-gold"></div>
+                </div>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="flex flex-wrap justify-center gap-3 mb-12">
+                <button onclick="filterExperience('all')" class="exp-filter-btn px-4 py-2 border border-gold bg-gold text-emerald font-sarabun font-bold text-xs uppercase tracking-wider transition-all">ทั้งหมด (All Roles)</button>
+                <button onclick="filterExperience('hr-mgmt')" class="exp-filter-btn px-4 py-2 border border-gold/40 text-gold hover:border-gold font-sarabun text-xs uppercase tracking-wider transition-all">การบริหาร HR & ทีม</button>
+                <button onclick="filterExperience('payroll')" class="exp-filter-btn px-4 py-2 border border-gold/40 text-gold hover:border-gold font-sarabun text-xs uppercase tracking-wider transition-all">Payroll & สวัสดิการ</button>
+            </div>
+
+            <!-- Career Timeline Grid -->
+            <div class="space-y-8 max-w-5xl mx-auto">
+                
+                <!-- Experience 1: Amrez Co., Ltd. -->
+                <div class="exp-card deco-border p-6 sm:p-8 gold-box-hover" data-category="hr-mgmt">
+                    <div class="diamond-corner dc-tl"><span>◆</span></div><div class="diamond-corner dc-tr"><span>◆</span></div>
+                    <div class="diamond-corner dc-bl"><span>◆</span></div><div class="diamond-corner dc-br"><span>◆</span></div>
+
+                    <div class="flex flex-col md:flex-row justify-between md:items-center border-b border-gold/30 pb-4 mb-4 gap-2">
+                        <div>
+                            <span class="px-2.5 py-1 bg-gold/10 border border-gold/40 text-gold text-xs font-cinzel tracking-widest font-bold">2023 - PRESENT</span>
+                            <h3 class="font-noto text-2xl text-cream font-bold mt-2">Amrez Co., Ltd.</h3>
+                            <p class="text-gold text-sm font-semibold">Human Resources Manager</p>
+                        </div>
+                        <div class="text-right text-xs text-gold/80 font-cinzel">
+                            <span class="inline-block px-3 py-1 border border-gold/30 bg-emerald/80">RETAIL & BEAUTY</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 font-sarabun text-cream/90 text-sm sm:text-base">
+                        <p class="flex items-start gap-2">
+                            <i class="fa-solid fa-square-check text-gold mt-1 shrink-0"></i>
+                            <span>จัดทำและนำระบบการประเมินผลการปฏิบัติงานรายไตรมาส (Quarterly Performance Review) มาใช้ สามารถ<strong>เพิ่มคะแนนความผูกพันของพนักงาน (Employee Engagement) ขึ้น 25%</strong></span>
+                        </p>
+                        <p class="flex items-start gap-2">
+                            <i class="fa-solid fa-square-check text-gold mt-1 shrink-0"></i>
+                            <span>ปรับปรุงกระบวนการสรรหาและคัดเลือกพนักงาน <strong>ลดระยะเวลาการรับสมัครงานจาก 30 วัน เหลือเพียง 15 วัน (ลดลง 50%)</strong></span>
+                        </p>
+                        <p class="flex items-start gap-2">
+                            <i class="fa-solid fa-square-check text-gold mt-1 shrink-0"></i>
+                            <span>พัฒนาหลักสูตรฝึกอบรมภายในองค์กร ส่งผลให้พนักงาน <strong class="text-gold">40% พัฒนาทักษะการทำงานเพิ่มขึ้นภายใน 3 เดือน</strong></span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Experience 2: Charlotte Nail Cafe -->
+                <div class="exp-card deco-border p-6 sm:p-8 gold-box-hover" data-category="hr-mgmt">
+                    <div class="diamond-corner dc-tl"><span>◆</span></div><div class="diamond-corner dc-tr"><span>◆</span></div>
+                    <div class="diamond-corner dc-bl"><span>◆</span></div><div class="diamond-corner dc-br"><span>◆</span></div>
+
+                    <div class="flex flex-col md:flex-row justify-between md:items-center border-b border-gold/30 pb-4 mb-4 gap-2">
+                        <div>
+                            <span class="px-2.5 py-1 bg-gold/10 border border-gold/40 text-gold text-xs font-cinzel tracking-widest font-bold">2020 - 2023</span>
+                            <h3 class="font-noto text-2xl text-cream font-bold mt-2">Charlotte Nail Cafe</h3>
+                            <p class="text-gold text-sm font-semibold">Human Resources Manager</p>
+                        </div>
+                        <div class="text-right text-xs text-gold/80 font-cinzel">
+                            <span class="inline-block px-3 py-1 border border-gold/30 bg-emerald/80">BEAUTY & SERVICES</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 font-sarabun text-cream/90 text-sm sm:text-base">
+                        <p class="flex items-start gap-2">
+                            <i class="fa-solid fa-square-check text-gold mt-1 shrink-0"></i>
+                            <span>ออกแบบระบบรับพนักงานใหม่ (Onboarding Process) ที่มีประสิทธิภาพ <strong>ลดอัตราการลาออกในช่วงแรกเริ่มทำงานลง 30%</strong></span>
+                        </p>
+                        <p class="flex items-start gap-2">
+                            <i class="fa-solid fa-square-check text-gold mt-1 shrink-0"></i>
+                            <span>วางโครงสร้างองค์กรใหม่ รองรับการ<strong>ขยายสาขาเพิ่มขึ้น 5 สาขาภายในระยะเวลา 2 ปี</strong></span>
+                        </p>
+                        <p class="flex items-start gap-2">
+                            <i class="fa-solid fa-square-check text-gold mt-1 shrink-0"></i>
+                            <span>ริเริ่มโครงการดูแลสุขภาพจิตพนักงาน (Mental Wellness Program) ส่งผลให้ความพึงพอใจของพนักงานสูงขึ้น</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Experience 3: Virgin Active Thailand -->
+                <div class="exp-card deco-border p-6 sm:p-8 gold-box-hover" data-category="payroll">
+                    <div class="diamond-corner dc-tl"><span>◆</span></div><div class="diamond-corner dc-tr"><span>◆</span></div>
+                    <div class="diamond-corner dc-bl"><span>◆</span></div><div class="diamond-corner dc-br"><span>◆</span></div>
+
+                    <div class="flex flex-col md:flex-row justify-between md:items-center border-b border-gold/30 pb-4 mb-4 gap-2">
+                        <div>
+                            <span class="px-2.5 py-1 bg-gold/10 border border-gold/40 text-gold text-xs font-cinzel tracking-widest font-bold">2019 - 2020</span>
+                            <h3 class="font-noto text-2xl text-cream font-bold mt-2">Virgin Active Thailand</h3>
+                            <p class="text-gold text-sm font-semibold">Human Resources Manager (Payroll & Recruitment)</p>
+                        </div>
+                        <div class="text-right text-xs text-gold/80 font-cinzel">
+                            <span class="inline-block px-3 py-1 border border-gold/30 bg-emerald/80">FITNESS & WELLNESS</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 font-sarabun text-cream/90 text-sm sm:text-base">
+                        <p class="flex items-start gap-2">
+                            <i class="fa-solid fa-square-check text-gold mt-1 shrink-0"></i>
+                            <span>บริหารจัดการเงินเดือน (Payroll) พนักงานมากกว่า <strong>250 คนหลายสาขา ด้วยความถูกต้องแม่นยำ 100%</strong></span>
+                        </p>
+                        <p class="flex items-start gap-2">
+                            <i class="fa-solid fa-square-check text-gold mt-1 shrink-0"></i>
+                            <span>ประยุกต์ใช้โปรแกรมอัตโนมัติในการทำเงินเดือน <strong>ลดเวลาในการประมวลผล Payroll ลงถึง 40%</strong></span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Experience 4: Coty Thailand Co., Ltd. -->
+                <div class="exp-card deco-border p-6 sm:p-8 gold-box-hover" data-category="payroll">
+                    <div class="diamond-corner dc-tl"><span>◆</span></div><div class="diamond-corner dc-tr"><span>◆</span></div>
+                    <div class="diamond-corner dc-bl"><span>◆</span></div><div class="diamond-corner dc-br"><span>◆</span></div>
+
+                    <div class="flex flex-col md:flex-row justify-between md:items-center border-b border-gold/30 pb-4 mb-4 gap-2">
+                        <div>
+                            <span class="px-2.5 py-1 bg-gold/10 border border-gold/40 text-gold text-xs font-cinzel tracking-widest font-bold">2017 - 2018</span>
+                            <h3 class="font-noto text-2xl text-cream font-bold mt-2">Coty Thailand Co., Ltd.</h3>
+                            <p class="text-gold text-sm font-semibold">Human Resources Manager</p>
+                        </div>
+                        <div class="text-right text-xs text-gold/80 font-cinzel">
+                            <span class="inline-block px-3 py-1 border border-gold/30 bg-emerald/80">GLOBAL BEAUTY BRAND</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 font-sarabun text-cream/90 text-sm sm:text-base">
+                        <p class="flex items-start gap-2">
+                            <i class="fa-solid fa-square-check text-gold mt-1 shrink-0"></i>
+                            <span>ผู้นำโครงการประเมินโบนัสประจำปีสำหรับ 3 แผนก สอดคล้องกับดัชนีวัดผลงาน (Performance Metrics)</span>
+                        </p>
+                        <p class="flex items-start gap-2">
+                            <i class="fa-solid fa-square-check text-gold mt-1 shrink-0"></i>
+                            <span>ร่วมมือกับแผนกบัญชีในการตรวจสอบรายงานทางการเงิน HR <strong>ลดความคลาดเคลื่อนทางการเงินลง 20%</strong></span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Experience 5: Bajaree Aesthetic Clinic -->
+                <div class="exp-card deco-border p-6 sm:p-8 gold-box-hover" data-category="hr-mgmt">
+                    <div class="diamond-corner dc-tl"><span>◆</span></div><div class="diamond-corner dc-tr"><span>◆</span></div>
+                    <div class="diamond-corner dc-bl"><span>◆</span></div><div class="diamond-corner dc-br"><span>◆</span></div>
+
+                    <div class="flex flex-col md:flex-row justify-between md:items-center border-b border-gold/30 pb-4 mb-4 gap-2">
+                        <div>
+                            <span class="px-2.5 py-1 bg-gold/10 border border-gold/40 text-gold text-xs font-cinzel tracking-widest font-bold">2014 - 2017</span>
+                            <h3 class="font-noto text-2xl text-cream font-bold mt-2">Bajaree Aesthetic Clinic</h3>
+                            <p class="text-gold text-sm font-semibold">Human Resources Specialist</p>
+                        </div>
+                        <div class="text-right text-xs text-gold/80 font-cinzel">
+                            <span class="inline-block px-3 py-1 border border-gold/30 bg-emerald/80">HEALTHCARE & CLINIC</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 font-sarabun text-cream/90 text-sm sm:text-base">
+                        <p class="flex items-start gap-2">
+                            <i class="fa-solid fa-square-check text-gold mt-1 shrink-0"></i>
+                            <span>ปรับปรุงระบบสวัสดิการและส่งเสริมสุขภาพพนักงาน <strong>เพิ่มอัตราการรักษาพนักงาน (Employee Retention) ขึ้น 10%</strong></span>
+                        </p>
+                        <p class="flex items-start gap-2">
+                            <i class="fa-solid fa-square-check text-gold mt-1 shrink-0"></i>
+                            <span>ทบทวนและปรับปรุงนโยบาย HR ให้สอดคล้องกับกฎหมายแรงงานฉบับใหม่ล่าสุด</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Experience 6: Major Bowl Hits -->
+                <div class="exp-card deco-border p-6 sm:p-8 gold-box-hover" data-category="hr-mgmt">
+                    <div class="diamond-corner dc-tl"><span>◆</span></div><div class="diamond-corner dc-tr"><span>◆</span></div>
+                    <div class="diamond-corner dc-bl"><span>◆</span></div><div class="diamond-corner dc-br"><span>◆</span></div>
+
+                    <div class="flex flex-col md:flex-row justify-between md:items-center border-b border-gold/30 pb-4 mb-4 gap-2">
+                        <div>
+                            <span class="px-2.5 py-1 bg-gold/10 border border-gold/40 text-gold text-xs font-cinzel tracking-widest font-bold">2010 - 2014</span>
+                            <h3 class="font-noto text-2xl text-cream font-bold mt-2">Major Bowl Hits</h3>
+                            <p class="text-gold text-sm font-semibold">Human Resources</p>
+                        </div>
+                        <div class="text-right text-xs text-gold/80 font-cinzel">
+                            <span class="inline-block px-3 py-1 border border-gold/30 bg-emerald/80">ENTERTAINMENT</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 font-sarabun text-cream/90 text-sm sm:text-base">
+                        <p class="flex items-start gap-2">
+                            <i class="fa-solid fa-square-check text-gold mt-1 shrink-0"></i>
+                            <span>เป็นผู้นำโครงการสร้างความผูกพันและวัฒนธรรมองค์กร ครอบคลุมพนักงาน 7 แผนกทั่วประเทศ</span>
+                        </p>
+                        <p class="flex items-start gap-2">
+                            <i class="fa-solid fa-square-check text-gold mt-1 shrink-0"></i>
+                            <span>จัดทำคู่มือพนักงาน (Employee Handbook) และคู่มือการฝึกอบรมบุคลากรใหม่</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Experience 7: Synergy Worldwide -->
+                <div class="exp-card deco-border p-6 sm:p-8 gold-box-hover" data-category="hr-mgmt">
+                    <div class="diamond-corner dc-tl"><span>◆</span></div><div class="diamond-corner dc-tr"><span>◆</span></div>
+                    <div class="diamond-corner dc-bl"><span>◆</span></div><div class="diamond-corner dc-br"><span>◆</span></div>
+
+                    <div class="flex flex-col md:flex-row justify-between md:items-center border-b border-gold/30 pb-4 mb-4 gap-2">
+                        <div>
+                            <span class="px-2.5 py-1 bg-gold/10 border border-gold/40 text-gold text-xs font-cinzel tracking-widest font-bold">2005 - 2010</span>
+                            <h3 class="font-noto text-2xl text-cream font-bold mt-2">Synergy Worldwide</h3>
+                            <p class="text-gold text-sm font-semibold">Customer Service Specialist</p>
+                        </div>
+                        <div class="text-right text-xs text-gold/80 font-cinzel">
+                            <span class="inline-block px-3 py-1 border border-gold/30 bg-emerald/80">CUSTOMER EXPERIENCE</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 font-sarabun text-cream/90 text-sm sm:text-base">
+                        <p class="flex items-start gap-2">
+                            <i class="fa-solid fa-square-check text-gold mt-1 shrink-0"></i>
+                            <span>ให้บริการและแก้ไขปัญหาลูกค้ากว่า 50+ รายต่อวัน ผ่านช่องทาง Omnichannel ด้วย<strong>ระดับความพึงพอใจสูงถึง 95%</strong></span>
+                        </p>
+                        <p class="flex items-start gap-2">
+                            <i class="fa-solid fa-square-check text-gold mt-1 shrink-0"></i>
+                            <span>ฝึกอบรมเจ้าหน้าที่บริการลูกค้ารุ่นใหม่เพื่อยกระดับมาตรฐานบริการลูกค้า</span>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="dashboard" class="scroll-mt-24">
+            <!-- Section Title -->
+            <div class="text-center mb-16">
+                <div class="inline-block text-gold text-xs font-cinzel tracking-[0.3em] uppercase mb-1">Interactive Analytics</div>
+                <h2 class="font-noto text-3xl sm:text-4xl text-gold-gradient font-bold uppercase tracking-wider">4. Dashboard รายงานผลงาน</h2>
+                <div class="flex items-center justify-center gap-3 mt-3">
+                    <div class="h-px w-12 bg-gold"></div>
+                    <i class="fa-solid fa-diamond text-gold text-xs"></i>
+                    <div class="h-px w-12 bg-gold"></div>
+                </div>
+                <p class="text-cream/80 text-sm sm:text-base font-sarabun mt-2">
+                    ตัวชี้วัดประสิทธิภาพเชิงปริมาณและการเติบโตในสายงานบริหารทรัพยากรบุคคล
+                </p>
+            </div>
+
+            <!-- KPI Summary Metric Cards Grid -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <div class="deco-border p-6 text-center bg-forest/90 gold-box-hover">
+                    <div class="diamond-corner dc-tl"><span>◆</span></div><div class="diamond-corner dc-tr"><span>◆</span></div>
+                    <div class="diamond-corner dc-bl"><span>◆</span></div><div class="diamond-corner dc-br"><span>◆</span></div>
+                    
+                    <p class="font-cinzel text-gold text-xs tracking-widest uppercase mb-1">TOTAL EXPERIENCE</p>
+                    <p class="font-cinzel text-3xl sm:text-4xl font-bold text-gold-gradient gold-glow my-2">19+</p>
+                    <p class="font-sarabun text-xs text-cream/70">ปี ประสบการณ์ HR & Management</p>
+                </div>
+
+                <div class="deco-border p-6 text-center bg-forest/90 gold-box-hover">
+                    <div class="diamond-corner dc-tl"><span>◆</span></div><div class="diamond-corner dc-tr"><span>◆</span></div>
+                    <div class="diamond-corner dc-bl"><span>◆</span></div><div class="diamond-corner dc-br"><span>◆</span></div>
+
+                    <p class="font-cinzel text-gold text-xs tracking-widest uppercase mb-1">RECRUITMENT EFFICIENCY</p>
+                    <p class="font-cinzel text-3xl sm:text-4xl font-bold text-gold-gradient gold-glow my-2">50%</p>
+                    <p class="font-sarabun text-xs text-cream/70">ลดเวลาคัดเลือก (30 เหลือ 15 วัน)</p>
+                </div>
+
+                <div class="deco-border p-6 text-center bg-forest/90 gold-box-hover">
+                    <div class="diamond-corner dc-tl"><span>◆</span></div><div class="diamond-corner dc-tr"><span>◆</span></div>
+                    <div class="diamond-corner dc-bl"><span>◆</span></div><div class="diamond-corner dc-br"><span>◆</span></div>
+
+                    <p class="font-cinzel text-gold text-xs tracking-widest uppercase mb-1">PAYROLL ACCURACY</p>
+                    <p class="font-cinzel text-3xl sm:text-4xl font-bold text-gold-gradient gold-glow my-2">100%</p>
+                    <p class="font-sarabun text-xs text-cream/70">ความแม่นยำ (250+ พนักงาน)</p>
+                </div>
+
+                <div class="deco-border p-6 text-center bg-forest/90 gold-box-hover">
+                    <div class="diamond-corner dc-tl"><span>◆</span></div><div class="diamond-corner dc-tr"><span>◆</span></div>
+                    <div class="diamond-corner dc-bl"><span>◆</span></div><div class="diamond-corner dc-br"><span>◆</span></div>
+
+                    <p class="font-cinzel text-gold text-xs tracking-widest uppercase mb-1">ENGAGEMENT INCREASE</p>
+                    <p class="font-cinzel text-3xl sm:text-4xl font-bold text-gold-gradient gold-glow my-2">+25%</p>
+                    <p class="font-sarabun text-xs text-cream/70">คะแนนความผูกพันในองค์กร</p>
+                </div>
+            </div>
+
+            <!-- Charts Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                
+                <!-- Chart 1: Recruitment & Process Time Efficiency (Bar Chart) -->
+                <div class="deco-border p-6 sm:p-8 bg-forest/80">
+                    <div class="diamond-corner dc-tl"><span>◆</span></div><div class="diamond-corner dc-tr"><span>◆</span></div>
+                    <div class="diamond-corner dc-bl"><span>◆</span></div><div class="diamond-corner dc-br"><span>◆</span></div>
+
+                    <div class="flex items-center justify-between border-b border-gold/30 pb-3 mb-6">
+                        <h3 class="font-noto text-lg text-gold font-bold flex items-center gap-2">
+                            <i class="fa-solid fa-clock-rotate-left text-gold"></i> ประสิทธิภาพการลดระยะเวลาการทำงาน (วัน)
+                        </h3>
+                    </div>
+                    <div class="h-72 w-full">
+                        <canvas id="recruitmentBarChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Chart 2: Key Accomplishment Breakdown (Doughnut Chart) -->
+                <div class="deco-border p-6 sm:p-8 bg-forest/80">
+                    <div class="diamond-corner dc-tl"><span>◆</span></div><div class="diamond-corner dc-tr"><span>◆</span></div>
+                    <div class="diamond-corner dc-bl"><span>◆</span></div><div class="diamond-corner dc-br"><span>◆</span></div>
+
+                    <div class="flex items-center justify-between border-b border-gold/30 pb-3 mb-6">
+                        <h3 class="font-noto text-lg text-gold font-bold flex items-center gap-2">
+                            <i class="fa-solid fa-chart-pie text-gold"></i> สัดส่วนผลงานความสำเร็จหลัก (%)
+                        </h3>
+                    </div>
+                    <div class="h-72 w-full flex justify-center">
+                        <canvas id="metricsDoughnutChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Chart 3: Core Competency Radar (Radar Chart) -->
+                <div class="deco-border p-6 sm:p-8 bg-forest/80">
+                    <div class="diamond-corner dc-tl"><span>◆</span></div><div class="diamond-corner dc-tr"><span>◆</span></div>
+                    <div class="diamond-corner dc-bl"><span>◆</span></div><div class="diamond-corner dc-br"><span>◆</span></div>
+
+                    <div class="flex items-center justify-between border-b border-gold/30 pb-3 mb-6">
+                        <h3 class="font-noto text-lg text-gold font-bold flex items-center gap-2">
+                            <i class="fa-solid fa-compass text-gold"></i> รัศมีสมรรถนะการบริหาร HR (Competency Radar)
+                        </h3>
+                    </div>
+                    <div class="h-72 w-full flex justify-center">
+                        <canvas id="competencyRadarChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Chart 4: Employee Retention & Satisfaction Growth (Line Chart) -->
+                <div class="deco-border p-6 sm:p-8 bg-forest/80">
+                    <div class="diamond-corner dc-tl"><span>◆</span></div><div class="diamond-corner dc-tr"><span>◆</span></div>
+                    <div class="diamond-corner dc-bl"><span>◆</span></div><div class="diamond-corner dc-br"><span>◆</span></div>
+
+                    <div class="flex items-center justify-between border-b border-gold/30 pb-3 mb-6">
+                        <h3 class="font-noto text-lg text-gold font-bold flex items-center gap-2">
+                            <i class="fa-solid fa-arrow-trend-up text-gold"></i> แนวโน้มความผูกพันและ Turnover Reduction
+                        </h3>
+                    </div>
+                    <div class="h-72 w-full">
+                        <canvas id="retentionLineChart"></canvas>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="w-full bg-[#e5e7eb] text-[#1f2937] py-8 border-t-4 border-gold mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center font-sarabun">
+            <p class="text-base sm:text-lg font-bold tracking-wide">
+                ระบบเว็บส่วนบุคคล พัฒนาโดย ชนาสิน ฤทธิคุปต์
+            </p>
+            <p class="text-xs text-[#4b5563] mt-2 font-cinzel uppercase tracking-widest">
+                Art Deco Executive Edition • All Rights Reserved © 2026
+            </p>
+        </div>
+    </footer>
+
+    <!-- Toast Notification Message Box (No alert used) -->
+    <div id="toast-message" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 deco-border px-6 py-4 bg-emerald text-gold font-sarabun text-sm flex items-center gap-3 shadow-2xl">
+        <i class="fa-solid fa-circle-check text-gold text-lg"></i>
+        <span id="toast-text">คัดลอกข้อมูลเรียบร้อยแล้ว</span>
+    </div>
+
+    <script>
+        // Splash Screen dismissal logic
+        function closeSplashScreen() {
+            const splash = document.getElementById('splash-screen');
+            if (splash) {
+                splash.style.opacity = '0';
+                splash.style.visibility = 'hidden';
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                }, 800);
+            }
+        }
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (menu) {
+                menu.classList.toggle('hidden');
+            }
+        }
+
+        // Copy to clipboard notification without alert()
+        function copyToClipboard(text, label) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text);
+            } else {
+                // Fallback using execCommand
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-999999px";
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                } catch (err) {
+                    console.error('Fallback copy failed', err);
+                }
+                document.body.removeChild(textArea);
+            }
+
+            // Show Toast
+            const toast = document.getElementById('toast-message');
+            const toastText = document.getElementById('toast-text');
+            if (toast && toastText) {
+                toastText.textContent = `คัดลอก${label}เรียบร้อยแล้ว: ${text}`;
+                toast.classList.remove('translate-y-20', 'opacity-0');
+                setTimeout(() => {
+                    toast.classList.add('translate-y-20', 'opacity-0');
+                }, 3000);
+            }
+        }
+
+        // Filter Experience Cards
+        function filterExperience(category) {
+            const cards = document.querySelectorAll('.exp-card');
+            const buttons = document.querySelectorAll('.exp-filter-btn');
+
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-gold', 'text-emerald', 'font-bold');
+                btn.classList.add('text-gold');
+            });
+
+            // Highlight active button
+            event.currentTarget.classList.add('bg-gold', 'text-emerald', 'font-bold');
+            event.currentTarget.classList.remove('text-gold');
+
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Chart.js Global Theme Defaults
+        window.addEventListener('load', () => {
+            Chart.defaults.color = '#f5eedc';
+            Chart.defaults.font.family = "'Sarabun', 'Cinzel', sans-serif";
+            Chart.defaults.font.size = 12;
+
+            // Chart 1: Recruitment Bar Chart
+            const ctx1 = document.getElementById('recruitmentBarChart').getContext('2d');
+            new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: ['การรับสมัครงานแบบเดิม (วัน)', 'การรับสมัครงานหลังปรับปรุง (วัน)', 'เวลาประมวลผล Payroll เดิม (ชม.)', 'เวลาประมวลผล Payroll ใหม่ (ชม.)'],
+                    datasets: [{
+                        label: 'ระยะเวลาที่ใช้',
+                        data: [30, 15, 100, 60],
+                        backgroundColor: [
+                            'rgba(245, 238, 220, 0.25)',
+                            'rgba(212, 175, 55, 0.85)',
+                            'rgba(245, 238, 220, 0.25)',
+                            'rgba(212, 175, 55, 0.85)'
+                        ],
+                        borderColor: '#d4af37',
+                        borderWidth: 1.5,
+                        borderRadius: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#0b1712',
+                            titleColor: '#d4af37',
+                            bodyColor: '#f5eedc',
+                            borderColor: '#d4af37',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(212, 175, 55, 0.15)' },
+                            ticks: { color: '#d4af37' }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#f5eedc' }
+                        }
+                    }
+                }
+            });
+
+            // Chart 2: Doughnut Chart
+            const ctx2 = document.getElementById('metricsDoughnutChart').getContext('2d');
+            new Chart(ctx2, {
+                type: 'doughnut',
+                data: {
+                    labels: ['เพิ่ม Engagement', 'ลดเวลาการสรรหา', 'ลดอัตราการลาออก (Turnover)', 'พัฒนาทักษะพนักงาน'],
+                    datasets: [{
+                        data: [25, 50, 30, 40],
+                        backgroundColor: [
+                            '#d4af37',
+                            '#fce085',
+                            '#997415',
+                            '#2a4235'
+                        ],
+                        borderColor: '#0b1712',
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '65%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#f5eedc',
+                                padding: 15,
+                                font: { size: 11 }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Chart 3: Radar Chart for HR Competency
+            const ctx3 = document.getElementById('competencyRadarChart').getContext('2d');
+            new Chart(ctx3, {
+                type: 'radar',
+                data: {
+                    labels: [
+                        'Strategic Recruitment',
+                        'Payroll & Benefits',
+                        'Employee Engagement',
+                        'Conflict Resolution',
+                        'Labor Law Compliance',
+                        'Training & Development'
+                    ],
+                    datasets: [{
+                        label: 'ระดับความเชี่ยวชาญ (%)',
+                        data: [95, 100, 90, 88, 92, 85],
+                        backgroundColor: 'rgba(212, 175, 55, 0.25)',
+                        borderColor: '#d4af37',
+                        pointBackgroundColor: '#fce085',
+                        pointBorderColor: '#0b1712',
+                        pointHoverBackgroundColor: '#fff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(212, 175, 55, 0.2)' },
+                            grid: { color: 'rgba(212, 175, 55, 0.2)' },
+                            pointLabels: {
+                                color: '#f5eedc',
+                                font: { size: 10 }
+                            },
+                            ticks: { display: false, backdropColor: 'transparent' },
+                            suggestedMin: 50,
+                            suggestedMax: 100
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+
+            // Chart 4: Line Chart for Retention Trend
+            const ctx4 = document.getElementById('retentionLineChart').getContext('2d');
+            new Chart(ctx4, {
+                type: 'line',
+                data: {
+                    labels: ['ปีที่ 1', 'ปีที่ 2', 'ปีที่ 3', 'ปีที่ 4', 'ปัจจุบัน'],
+                    datasets: [
+                        {
+                            label: 'คะแนน Employee Engagement (%)',
+                            data: [65, 72, 78, 84, 90],
+                            borderColor: '#d4af37',
+                            backgroundColor: 'rgba(212, 175, 55, 0.1)',
+                            fill: true,
+                            tension: 0.3,
+                            borderWidth: 2.5
+                        },
+                        {
+                            label: 'อัตราการคงอยู่ของพนักงาน Retention (%)',
+                            data: [70, 75, 82, 88, 92],
+                            borderColor: '#fce085',
+                            borderDash: [5, 5],
+                            tension: 0.3,
+                            borderWidth: 2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: '#f5eedc' }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            grid: { color: 'rgba(212, 175, 55, 0.15)' },
+                            ticks: { color: '#d4af37' }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#f5eedc' }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
